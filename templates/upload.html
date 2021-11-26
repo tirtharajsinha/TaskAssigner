@@ -62,7 +62,14 @@
             <p id="alert">Successfully added 1 files.</p>
             <i class="fa fa-close" onclick="close_msg()"></i>
         </div>
-
+        <div class="wrapper" id="wrapper">
+            <div class="box">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+        </div>
 
     </div>
 
@@ -166,9 +173,10 @@
                 document.getElementById("msg").style.transform = "translateY(0px)"
             }
             else {
+                document.getElementById("wrapper").style.display = "flex";
                 setTimeout(() => {
                     document.getElementById("taskin").click();
-                }, 1000);
+                }, 4000);
             }
 
 
