@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Home | TaskAssigner</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="nav-start">
+            <img src="{{ url_for('static', filename='favicon.png') }}" alt="">
+            <a href="/">TaskAssigner</a>
+        </div>
+        <div class="nav-mid">
+            <a href="#">FAQ</a>
+            <a href="#" class="tour">Tour</a>
+            <a href="/">Dashboard</a>
+        </div>
+        <div class="nav-end">
+            <a href="#">Cradits</a>
+            <i class="fa fa-bell-o"></i>
+            <button>Join</button>
+        </div>
+    </div>
+    <div class="container"></div>
+
+</body>
+
+</html>

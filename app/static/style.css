@@ -1,0 +1,115 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  padding-top: 55px;
+  position: relative;
+}
+.container {
+  width: 100%;
+  min-height: calc(100vh - 300px);
+}
+.nav {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: rgb(139, 139, 139);
+  font-weight: 500;
+  font-size: 16px;
+  background: white;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+.nav a {
+  color: rgb(139, 139, 139);
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav i,
+.nav button {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: brown;
+  font-weight: 800;
+}
+
+.nav .nav-start {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.nav-start img {
+  height: 30px;
+  width: auto;
+}
+.nav-start a {
+  color: black;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.nav .nav-mid {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-mid a:hover {
+  color: rgb(92, 92, 92);
+  margin-left: 13px;
+  margin-right: 13px;
+}
+.nav .nav-end {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.nav-end a:hover {
+  color: black;
+}
+.nav-end button {
+  color: black;
+  font-weight: 700;
+  font-size: 17px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  border-left: 2px solid black;
+  padding-left: 10px;
+}
+
+.nav-end button:hover {
+  color: rgb(54, 54, 54);
+  padding-bottom: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav .nav-end {
+    display: none;
+  }
+  .nav .nav-start a {
+    font-size: 14px;
+  }
+  .nav .nav-start img {
+    height: 20px;
+  }
+  .tour {
+    display: none;
+  }
+}

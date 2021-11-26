@@ -1,0 +1,256 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  padding-top: 55px;
+  position: relative;
+}
+.container {
+  width: 100%;
+  min-height: calc(100vh - 300px);
+  margin-bottom: 100px;
+}
+.nav {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: rgb(139, 139, 139);
+  font-weight: 500;
+  font-size: 16px;
+  background: white;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+.nav a {
+  color: rgb(139, 139, 139);
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav i,
+.nav button {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: brown;
+  font-weight: 800;
+}
+
+.nav .nav-start {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.nav-start img {
+  height: 30px;
+  width: auto;
+}
+.nav-start a {
+  color: black;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.nav .nav-mid {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-mid a:hover {
+  color: rgb(92, 92, 92);
+  margin-left: 13px;
+  margin-right: 13px;
+}
+.nav .nav-end {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.nav-end a:hover {
+  color: black;
+}
+.nav-end button {
+  color: black;
+  font-weight: 700;
+  font-size: 17px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  border-left: 2px solid black;
+  padding-left: 10px;
+}
+
+.nav-end button:hover {
+  color: rgb(54, 54, 54);
+  padding-bottom: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav .nav-end {
+    display: none;
+  }
+  .nav .nav-start a {
+    font-size: 14px;
+  }
+  .nav .nav-start img {
+    height: 20px;
+  }
+  .tour {
+    display: none;
+  }
+}
+
+.container .board {
+  width: 320px;
+  margin: auto;
+  margin-top: 100px;
+}
+.board h2 {
+  text-align: left;
+  color: rgb(59, 59, 59);
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+.board h4 {
+  margin-left: 10px;
+  color: rgb(36, 36, 36);
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+.board h4 span {
+  font-weight: 700;
+  color: black;
+}
+
+.board i {
+  color: black;
+  margin-right: 5px;
+}
+
+.uploader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 100px;
+  width: 360px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.uploader img {
+  width: 100px;
+  height: auto;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#fileInput {
+  display: none;
+}
+
+form p {
+  color: black;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+form div {
+  padding: 10px;
+  background: chartreuse;
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 20px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+form button {
+  display: none;
+}
+
+.loaded {
+  width: 360px;
+  padding: 20px;
+  margin: auto;
+  margin-top: 20px;
+}
+.loaded div {
+  width: 90%;
+  font-size: 16px;
+  color: rgb(61, 61, 61);
+  margin-bottom: 7px;
+}
+.loaded i {
+  color: hsl(0, 0%, 15%);
+  margin-right: 7px;
+}
+.loaded h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+}
+.loaded button {
+  padding: 10px;
+  border: none;
+  font-weight: 600;
+  width: 200px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: palegreen;
+  color: black;
+  margin: auto;
+  display: block;
+  margin-top: 30px;
+}
+
+.loaded button:hover {
+  background: chartreuse;
+  color: rgb(82, 82, 82);
+}
+
+#msg {
+  width: 250px;
+  height: 50px;
+  background: rgb(200, 250, 200);
+  color: rgb(71, 71, 71);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  transform: translateY(100px);
+  transition: all 0.3s ease-in-out;
+}
+#msg i {
+  font-size: 16px;
+}
+#msg i:hover {
+  color: tomato;
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+    <title>Submission | TaskAssigner</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="nav-start">
+            <img src="{{ url_for('static', filename='favicon.png') }}" alt="">
+            <a href="/">TaskAssigner</a>
+        </div>
+        <div class="nav-mid">
+            <a href="#">FAQ</a>
+            <a href="#" class="tour">Tour</a>
+            <a href="/">Dashboard</a>
+        </div>
+        <div class="nav-end">
+            <a href="#">Cradits</a>
+            <i class="fa fa-bell-o"></i>
+            <button>Join</button>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+        <div class="board">
+            <h2>Task Submission Bucket</h2>
+            <h4><i class="fa fa-user-o"></i>Assignee - <span>{{person}}</span></h4>
+            <h4><i class="fa fa-tasks"></i>Task - <span>{{task}}</span></h4>
+        </div>
+
+
+        <div class="uploader" id="dragndrop">
+            <img src="static/upload.png" alt="">
+            <form action="" method="post">
+                <input type="file" name="file" id="fileInput" multiple>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <input type="hidden" name="feedback" id="feedback" value="0" />
+                <input type="hidden" name="id" id="id" value="{{id}}" />
+                <p>drag and drop file here</p>
+                <p>- OR -</p>
+                <div class="btn" onclick="activeload()" id="submitmid">Browse Your files</div>
+                <button type="submit" id="taskin"></button>
+            </form>
+        </div>
+        <div class="loaded" id="loaded">
+            <button onclick='upload()'>Turn in</button>
+        </div>
+        <div id="msg">
+            <p id="alert">Successfully added 1 files.</p>
+            <i class="fa fa-close" onclick="close_msg()"></i>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        const dropArea = document.querySelector("#dragndrop");
+        const input = dropArea.querySelector("#fileInput");
+        let openfile = "";
+
+
+        input.addEventListener("change", function () {
+            //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+            let file = this.files;
+            files = input.files;
+            document.getElementById("msg").style.background = "rgb(200, 250, 200)";
+            document.getElementById("alert").innerHTML = "Successfully added " + files.length + " file."
+            document.getElementById("msg").style.transform = "translateY(0px)"
+            input.files = new FileListItems(Array.from(openfile).concat(Array.from(input.files)));
+            showFile(); //calling function
+            console.log("changed")
+            checkfile();
+            document.getElementById("submitmid").innerHTML = "<i class='fa fa-plus'> </i>Add more file"
+        });
+        dropArea.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            document.getElementById("dragndrop").style.background = "rgb(235, 235, 235)"; //preventing from default behaviour
+        });
+
+        dropArea.addEventListener("dragleave", () => {
+            document.getElementById("dragndrop").style.background = "white";
+        });
+        dropArea.addEventListener("drop", (event) => {
+            event.preventDefault(); //preventing from default behaviour
+            let oldlist = input.files;
+            //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+            input.files = event.dataTransfer.files;
+            files = input.files;
+            document.getElementById("msg").style.background = "rgb(200, 250, 200)";
+            document.getElementById("alert").innerHTML = "Successfully added " + files.length + " file."
+            document.getElementById("msg").style.transform = "translateY(0px)"
+            input.files = new FileListItems(Array.from(oldlist).concat(Array.from(input.files)));
+            showFile();
+            checkfile();
+        });
+
+        function FileListItems(files) {
+            var b = new ClipboardEvent("").clipboardData || new DataTransfer()
+            for (var i = 0, len = files.length; i < len; i++) b.items.add(files[i])
+            return b.files
+        }
+
+        function showFile() {
+            let files = input.files;
+            console.log(files)
+            for (var i = 0; i < files.length; i++) {
+                let file = files[i]
+                let fileType = file.type; //getting selected file type
+                console.log(fileType);
+
+                let fileReader = new FileReader(); //creating new FileReader object
+                fileReader.onload = () => {
+                    let fileURL = fileReader.result; //passing user file source in fileURL variable
+
+                }
+                fileReader.readAsDataURL(file);
+            }
+
+        }
+
+        function checkfile() {
+            let files = document.getElementById("fileInput").files
+            let name = "";
+            let block = "<h3>Files You Added</h3>";
+            for (var i = 0; i < files.length; i++) {
+                name = files[i].name;
+                block = block + `
+            <div>
+                <i class="fa fa-file"></i>${name}
+            </div>
+            `;
+
+            }
+            document.getElementById("loaded").innerHTML = block + "<button onclick='upload()'>Turn in</button>";
+            document.getElementById("feedback").value = "1";
+        }
+
+        function close_msg() {
+            document.getElementById("msg").style.transform = "translateY(100px)"
+        }
+
+
+        function activeload() {
+            openfile = input.files;
+            document.getElementById("fileInput").click();
+        }
+        function upload() {
+            let files = input.files;
+            if (files.length == 0) {
+                document.getElementById("alert").innerHTML = "No file added ."
+                document.getElementById("msg").style.background = "rgb(224, 159, 159)";
+                document.getElementById("msg").style.transform = "translateY(0px)"
+            }
+            else {
+                setTimeout(() => {
+                    document.getElementById("taskin").click();
+                }, 1000);
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>
