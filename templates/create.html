@@ -167,7 +167,10 @@
             function checked() {
                 if (isperson && istask) {
                     console.log("both selected")
-                    document.getElementById("conf").style.display = "flex"
+                    
+                    setTimeout(() => {
+                        document.getElementById("conf").style.display = "flex"
+                    }, 1000);
                 }
             }
 
