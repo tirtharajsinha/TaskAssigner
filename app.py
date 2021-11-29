@@ -32,11 +32,11 @@ app = urls.add_url(app)
 if __name__ == "__main__":
     #  run this db.create first timels
 
-    try:
-        with app.app_context():
-            db.create_all()
-    except Exception as e:
-        print(e)
+    # try:
+    #     with app.app_context():
+    #         db.create_all()
+    # except Exception as e:
+    #     print(e)
     app.run(debug=True)
 
 
