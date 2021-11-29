@@ -17,8 +17,8 @@ app.config.from_object('config.Config')
 # database connection
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///registration.db'
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://zycvbnvwvumfpo:ec9a7853e5f5b94eaf0d413d5a38288d16ba770cd1532f98818daa091219e73b@ec2-54-195-76-73.eu-west-1.compute.amazonaws.com:5432/dc77499m8jiavo'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///registration.db'
+
 db.init_app(app)
 
 
