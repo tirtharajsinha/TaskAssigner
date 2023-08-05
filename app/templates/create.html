@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="static/create.css">
+    <link rel="shortcut icon" href="static/favicon.png" type="image/x-icon">
+    <title>Create | TaskAssigner</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="nav-start">
+            <img src="{{ url_for('static', filename='favicon.png') }}" alt="">
+            <a href="/">TaskAssigner</a>
+        </div>
+        <div class="nav-mid">
+            <a href="#">FAQ</a>
+            <a href="#" class="tour">Tour</a>
+            <a href="/tasks">Tasks</a>
+        </div>
+        <div class="nav-end">
+            {% if user.is_authenticated %}
+            <a href="/logout">Sign Out</a>
+            <i class="fa fa-bell-o"></i>
+            <button>Hi, {{user.username}}</button>
+            {% else %}
+            <button><a href="/login">Sign In</a></button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="status">
+        <div class="close"><i class="fa fa-qrcode"></i></div>
+        <h2>Status</h2>
+        <div class="t_status">
+            <p class="t_val">{{total}}</p>
+            <p class="t_name">Total Tasks</p>
+        </div>
+        <div class="t_status">
+            <p class="t_val">{{dues}}</p>
+            <p class="t_name">Due Tasks</p>
+        </div>
+        <div class="t_status">
+            <p class="t_val">{{subd}}</p>
+            <p class="t_name">Submitted</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="create">
+            <div class="create-box" onclick="enableform(this)">
+                <img src="static/create.jpg" alt="">
+                <h2> <i class="fa fa-plus"></i>Create new Task</h2>
+            </div>
+            <form action="/tasks" method="post" id="form" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="form-group">
+                    <label for="dept">Department of </label>
+                    <input type="text" placeholder="Name of your Department.." name="dept" id="dept" class="form-field"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="person">Assignee List(.xlsx/.csv)</label>
+                    <input type="file" accept=".csv,.xlsx" name="person" id="person" class="form-field" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="task">Task name </label>
+                    <input type="text" placeholder="Name your task" name="task" id="task" class="form-field" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duedate">Due Date</label>
+                    <input type="datetime-local" name="duedate" id="duedate" class="form-field" required>
+                </div>
+
+                <button type="submit" id="submit">Create New Task</button>
+            </form>
+        </div>
+
+        <div class="task-cards">
+            <h2><i class="fa fa-get-pocket"></i> Tasks Bucket <br><span>- your Tasks appear here.</span></h2>
+            <div class="empty-box">
+                <img src="static/empty-box.png" alt="">
+                <h2> <i class="fa fa-glass"></i>No Task Created</h2>
+            </div>
+            {% for dt in data %}
+
+            <div class="card">
+                <div class="left-block">
+                    <p class="card-all"><span style="font-size: 20px;">{{dt.task}}</span></p>
+                    <p class="card-all">Assigned By <span>{{dt.Assigner}}</span> from Dept. of
+                        <span>{{dt.department}}</span>
+                    </p>
+                    <p class="card-date">Created on <span>{{dt.date.strftime('%d %b, %Y %I:%M %p')}}</span> </p>
+                    <p class="card-date">Due on <span>{{dt.DueDate.strftime('%d %b, %Y %I:%M %p')}}</span> </p>
+                </div>
+                <div class="right-block">
+                    <a class="subbtn2" onclick="getassignee(this)" data-id="{{dt.id}}"><i class="fal fa-users"></i> View
+                        Assignees</a>
+                    <a class="subbtn" onclick="sendmail(this)" data-id="{{dt.id}}"><i class="fal fa-alarm-clock"></i>
+                        Send Reminder</a>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+        <div class="confermation" id="conf">
+            <div class="cbox">
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <footer>
+        <h2>TaskAssigner</h2>
+        <p>Build using <img src="static/flask.png" alt=""></i></p>
+    </footer>
+    <script src="/static/fontawasome5.15-pro.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+    <script>
+
+        function enableform(elem) {
+            elem.style.display = "none";
+            document.getElementById("form").style.display = "flex";
+            document.getElementById("form").innerHTML
+        }
+
+        function sendmail(ele) {
+            let id = ele.dataset.id;
+            let defaulthtml = ele.innerHTML;
+            ele.innerHTML = `<i class="fal fa-spinner-third fa-spin"></i> Send Reminder`;
+            $.get(`/sendmail/${id}`)
+                .done(function (data) {
+                    ele.innerHTML = defaulthtml;
+                });
+        }
+
+
+        function getassignee(ele) {
+            let id = ele.dataset.id;
+
+            $.get(`/getassignee/${id}`)
+                .done(function (data) {
+                    console.log(data);
+                    document.getElementById("conf").style.display = "flex";
+                    let box = document.querySelector(".cbox");
+
+                    let header = `<div class="ttitle">
+                        <h2>Assignee List</h2>
+                        <a href='/static/media/${data["filename"]}'><i class="fal fa-file-download"></i></a>
+                        </div>`
+                    let table = "<table>";
+                    table += `<tr><th>Name</th><th>Email</th></tr>`
+                    data["list"].forEach(e => {
+                        table += `<tr><td>${e["name"]}</td><td>${e["email"]}</td></tr>`
+                        console.log(e["name"] + " " + e["email"])
+                    });
+                    table += "</table>"
+
+                    box.innerHTML = header + table;
+
+                });
+        }
+
+        $('#conf').on('click', function (e) {
+            if (e.target !== this)
+                return;
+
+            document.getElementById("conf").style.display = "none";
+        });
+
+
+
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+    </script>
+</body>
+
+</html>

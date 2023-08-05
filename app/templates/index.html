@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="static/favicon.png" type="image/x-icon">
+    <title>Home | TaskAssigner</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="nav-start">
+            <img src="{{ url_for('static', filename='favicon.png') }}" alt="">
+            <a href="/">TaskAssigner</a>
+        </div>
+        <div class="nav-mid">
+            <a href="#">FAQ</a>
+            <a href="#" class="tour">Tour</a>
+            <a href="/tasks">Tasks</a>
+        </div>
+        <div class="nav-end">
+            {% if user.is_authenticated %}
+            <a href="/logout">Sign Out</a>
+            <button>Hi, {{user.username}}</button>
+            {% else %}
+            <button><a href="/login">Sign In</a></button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="leftbox">
+            <h1>Task Assigner</h1>
+            <p>Assign and manage your task efficiently with built-in reminder support. Keep track of the things that
+                need
+                to get done with tasks. With the ability to give each task an assignee and due date, and plenty of ways
+                to see your tasks, you can make sure nothing slips through the cracks. </p>
+            <a href="/tasks">Get Started</a>
+        </div>
+        <img src="/static/banner.jpg" alt="">
+    </div>
+    <script src="/static/fontawasome5.15-pro.js"></script>
+</body>
+
+</html>
