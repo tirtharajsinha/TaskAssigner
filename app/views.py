@@ -6,8 +6,7 @@ from datetime import date
 from datetime import datetime
 import warnings
 import pandas as pd
-
-# from app import db
+from mail import mail
 
 from flask_mail import Mail, Message
 
@@ -51,8 +50,6 @@ def tasks():
 
 
 def log_add(Assignee, task, duedate, dept, init=True):
-    # from app import db
-
     if init:
         today = datetime.now()
 
@@ -108,8 +105,6 @@ def extract_csv(filename):
 
 
 def log_read(filter=False, id=0):
-    from app import db
-
     if filter:
         return Log.query.get(id)
     all = Log.query.order_by(Log.id.desc()).all()
@@ -124,8 +119,6 @@ def send_email(id):
 
 
 def mail_sender(id):
-    from app import mail
-
     task = Log.query.get(id)
     if task == None:
         return
@@ -140,7 +133,7 @@ def mail_sender(id):
         print(df["name"][ind], df["email"][ind])
         msg = Message(
             "Gentle Reminder -Task Due",
-            sender="debayan462@gmail.com",
+            sender="tirtharajsinha1@gmail.com",
             recipients=[df["email"][ind]],
         )
         msg.body = f"""

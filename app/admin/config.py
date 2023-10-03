@@ -16,10 +16,10 @@ class Config(object):
     TEMPLATE_FOLDER = "templates"
 
     # mail sender config
-    MAIL_SERVER = "<Use your mail server>"
+    MAIL_SERVER = "smtp-relay.brevo.com"
     MAIL_PORT = 587  # Change it
-    MAIL_USERNAME = "<USE Your mail id>"
-    MAIL_PASSWORD = "<Your mail password/key>"
+    MAIL_USERNAME = "sinhatirtharaj1@gmail.com"
+    MAIL_PASSWORD = "c3fn9XQKbVDEP54G"
     MAIL_USE_TLS = False
     MAIL_USE_SSL = False
 

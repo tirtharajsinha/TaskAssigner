@@ -4,9 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from datetime import datetime
 
-# create your db model here
 
+# create your db model here
 db = SQLAlchemy()
+
+
+def setup_db(app):
+    global db
+    db.init_app(app)
+    return db, app
 
 
 class User(UserMixin, db.Model):

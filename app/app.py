@@ -4,7 +4,7 @@ from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from flask_admin import Admin, BaseView, expose, Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-from flask_mail import Mail, Message
+import mail as mailConfig
 
 from models import *
 import urls
@@ -24,10 +24,12 @@ app.config.from_object("admin.config.Config")
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///registration.db"
-db.init_app(app)
+
+db, app = setup_db(app)
+
 
 # Settings up mail sender
-mail = Mail(app)
+mail, app = mailConfig.setMail(app)
 
 # setting up flask migrate
 migrate = Migrate(app, db)
